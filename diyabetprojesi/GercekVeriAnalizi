@@ -1,0 +1,77 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
+# --- 1. Veri Yükleme ---
+# NOT: Bu kodun çalışması için, 'diabetes.csv' dosyasının
+# çalıştırılan Python dosyası/notebook ile aynı dizinde olması gerekir.
+try:
+    df = pd.read_csv('diabetes.csv')
+    print("✅ Veri başarıyla yüklendi.")
+except FileNotFoundError:
+    print("❌ Hata: 'diabetes.csv' dosyası bulunamadı. Lütfen dosya yolunu kontrol edin.")
+    # Dosya bulunamazsa daha fazla işlem yapmamak için çıkış
+    exit()
+
+# --- 2. Veri Ön İşleme (Eksik Değerlerin Temizlenmesi) ---
+# 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin' ve 'BMI' 
+# sütunlarındaki '0' değerleri genellikle eksik veriyi temsil eder.
+# Bu 0 değerlerini sütun medyanları ile değiştirelim.
+# "Pregnancies" (Hamilelik) ve "Outcome" (Sonuç) için 0 normal bir değerdir.
+
+# Eksik olarak kabul edilen sütunlar
+cols_to_replace = ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']
+
+# 0 değerlerini NaN ile değiştir
+df[cols_to_replace] = df[cols_to_replace].replace(0, np.nan)
+
+# NaN değerlerini ilgili sütunun medyanı ile doldur
+for col in cols_to_replace:
+    median_val = df[col].median()
+    df[col].fillna(median_val, inplace=True)
+
+print("\n✅ Eksik değerler (0'lar) medyan ile temizlendi.")
+
+# --- 3. Keşifçi Veri Analizi (EDA) ---
+print("\n--- Temel İstatistikler (Temizlenmiş Veri) ---")
+print(df.describe().T)
+
+print("\n--- Diyabet Sonuç Dağılımı ---")
+print(df['Outcome'].value_counts())
+# Outcome (1: Diyabetli, 0: Diyabetsiz)
+
+
+# Korelasyon Matrisi Görselleştirmesi
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(), annot=True, fmt=".2f", cmap='coolwarm', linewidths=.5)
+plt.title('Özellikler Arası Korelasyon Matrisi')
+plt.show()
+
+
+
+# --- 4. Makine Öğrenimi: Lojistik Regresyon Modeli ---
+
+# Özellikler (X) ve Hedef (y) belirleme
+X = df.drop('Outcome', axis=1)
+y = df['Outcome']
+
+# Veriyi Eğitim ve Test setlerine ayırma
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42, stratify=y)
+print(f"\n✅ Veri Eğitim/Test olarak ayrıldı. Eğitim boyutu: {X_train.shape[0]}, Test boyutu: {X_test.shape[0]}")
+
+# Model Oluşturma ve Eğitme
+model = LogisticRegression(max_iter=1000, solver='liblinear')
+model.fit(X_train, y_train)
+
+# Tahmin yapma
+y_pred = model.predict(X_test)
+
+# --- 5. Model Değerlendirmesi ---
+print("\n--- Model Performans Metrikleri (Lojistik Regresyon) ---")
+print(f"Doğruluk (Accuracy): {accuracy_score(y_test, y_pred):.4f}")
+print("\nSınıflandırma Raporu:\n", classification_report(y_test, y_pred))
+print("\nKarmaşıklık Matrisi:\n", confusion_matrix(y_test, y_pred))

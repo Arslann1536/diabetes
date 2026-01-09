@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Diyabet & Kalp Hastalığı - Sağlıklı Yaşam Platformu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <style> 
+    /* Genel Sıfırlama ve Font */
+    body {
+        margin: 0;
+        font-family: 'Poppins', sans-serif; /* Daha modern bir font tercih edildi */
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* ===== HEADER - Başlık ve Navigasyon ===== */
+    header {
+        background-color: #004d40; /* Koyu Çam Yeşili - Sağlığı çağrıştırır */
+        color: white;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between; /* Başlık ve Navigasyonu ayırır */
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+
+    nav {
+        display: flex;
+        gap: 25px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 5px 0;
+        transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    nav a:hover {
+        color: #a7ffeb; /* Açık Mavi-Yeşil vurgu */
+        border-bottom: 2px solid #a7ffeb;
+    }
+
+    /* ===== MAIN - Ana İçerik Alanı ===== */
+    main {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+        display: flex; /* Ana içeriği (sol) ve Reklamı (sağ) yan yana getirmek için */
+        gap: 30px;
+    }
+
+    .content-area {
+        flex: 3; /* İçerik alanı daha geniş */
+    }
+
+    /* Hero Bölümü */
+    .hero {
+        background: linear-gradient(135deg, #ffffff, #e0f2f1); /* Hafif gradyan */
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+
+    .hero-text h2 {
+        color: #00796b; /* Orta Çam Yeşili */
+        font-size: 32px;
+        margin-top: 0;
+    }
+
+    .hero-text p {
+        font-size: 17px;
+        color: #555;
+    }
+
+    .hero-text button {
+        margin-top: 20px;
+        padding: 14px 25px;
+        background-color: #00796b;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        box-shadow: 0 4px 8px rgba(0, 121, 107, 0.3);
+    }
+
+    .hero-text button:hover {
+        background-color: #004d40;
+        transform: translateY(-2px);
+    }
+
+    /* Bilgi Kartları Bölümü */
+    .info-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .card {
+        background-color: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h3 {
+        color: #00796b;
+        border-bottom: 2px solid #e0f2f1;
+        padding-bottom: 10px;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .card h3 i {
+        color: #004d40;
+        font-size: 20px;
+    }
+
+    /* ===== REKLAM ALANI ===== */
+    .ad-sidebar {
+        flex: 1; /* Reklam alanı daha dar */
+        min-width: 250px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        height: fit-content; /* Sadece içeriği kadar yer kaplar */
+        position: sticky; /* Sayfa kaydırıldıkça sabit kalır */
+        top: 20px;
+        border: 1px dashed #cccccc;
+        text-align: center;
+    }
+
+    .ad-sidebar h3 {
+        color: #ff9800; /* Turuncu vurgu */
+        margin-top: 0;
+    }
+
+    .ad-box {
+        background-color: #fff3e0;
+        padding: 15px;
+        border-radius: 8px;
+        border: 1px solid #ffcc80;
+        margin-bottom: 15px;
+    }
+
+    /* ===== FOOTER - Alt Bilgi ===== */
+    footer {
+        background-color: #263238; /* Koyu Gri/Mavi */
+        color: #cfd8dc;
+        padding: 40px 20px;
+        margin-top: 60px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        text-align: left;
+        border-bottom: 1px solid #455a64;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .footer-col h4 {
+        color: #a7ffeb;
+        margin-bottom: 15px;
+        font-size: 18px;
+        border-bottom: 2px solid #546e7a;
+        padding-bottom: 5px;
+    }
+
+    .footer-col a {
+        color: #cfd8dc;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+    }
+
+    .footer-col a:hover {
+        color: #a7ffeb;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        font-size: 14px;
+        color: #90a4ae;
+    }
+    
+    .footer-bottom small {
+        display: block;
+        margin-top: 10px;
+    }
+
+    /* Responsive Tasarım */
+    @media (max-width: 992px) {
+        main {
+            flex-direction: column; /* İçerik ve reklam dikey hale gelir */
+        }
+
+        .ad-sidebar {
+            position: static; /* Sabitlik kalkar */
+            margin-top: 30px;
+            order: -1; /* Reklamı içeriğin üstüne taşır */
+        }
+    }
+
+    @media (max-width: 600px) {
+        header {
+            flex-direction: column;
+            padding: 15px 20px;
+        }
+
+        nav {
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero {
+            padding: 30px;
+        }
+        
+        .footer-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+</style>
+</head>
+<body>
+   <header>
+    <h1><i class="fas fa-heartbeat"></i> Diyabet & Kalp Sağlığı</h1>
+    <nav>
+        <a href="ındex.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+        <a href="risk.html"><i class="fas fa-calculator"></i> Risk Hesapla</a>
+        <a href="VeriAnalizi.html"><i class="fas fa-chart-bar"></i> Veri Analizi</a>
+        <a href="Hakkımızda.html"><i class="fas fa-info-circle"></i> Hakkımızda </a>
+    </nav>
+</header>    
+    
+<main>
+    <div class="content-area">
+        <section class="hero">
+            <div class="hero-text">
+                <h2>Diyabet Kalp Hastalığı Riskini Artırır mı?</h2>
+                <p>
+                    Diyabet, damar yapısını bozarak kalp ve damar hastalıkları riskini ciddi
+                    şekilde artırır. Bu platform, diyabet ile kalp hastalığı arasındaki ilişkiyi
+                    veri analizleri ve yapay zeka destekli tahminler ile göstermeyi amaçlar. Sağlığınızı bugün kontrol altına alın.
+                </p>
+               <button onclick="goToRisk()"><i class="fas fa-arrow-right"></i> Hemen Riskini Hesapla</button>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="card">
+                <h3><i class="fas fa-database"></i> Veri Analizi</h3>
+                <p>
+                    Gerçek sağlık veri setleri kullanılarak diyabet ve kalp hastalığı arasındaki
+                    istatistiksel ilişki analiz edilir ve anlaşılır grafiklerle sunulur.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-brain"></i> Yapay Zeka</h3>
+                <p>
+                    Makine öğrenmesi modelleri ile kişiye özel kalp hastalığı risk tahmini yapılır. Erken teşhis ve önlem için anahtar rol oynar.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3><i class="fas fa-book-medical"></i> Bilgilendirme</h3>
+                <p>
+                    Diyabet hastalarının kalp sağlığını koruması için en güncel, bilimsel ve pratik bilgiler sunulur.
+                </p>
+            </div>
+        </section>
+    </div>
+    
+    <aside class="ad-sidebar">
+        <h3>Öne Çıkanlar ve Reklam</h3>
+        <div class="ad-box">
+            <i class="fas fa-syringe" style="color: #ff9800; font-size: 24px; margin-bottom: 10px;"></i>
+            <p><strong>Sağlıklı Yaşam Kampanyası:</strong></p>
+            <p style="font-size: 14px;">Yeni diyabet tedavi yöntemleri hakkında bilgi almak için <a href="https://www.acibadem.com.tr/hayat/diyabet-tedavisinde-yeni-donem/">buraya tıklayın.</a></p>
+        </div>
+        <div class="ad-box">
+             <i class="fas fa-utensils" style="color: #4caf50; font-size: 24px; margin-bottom: 10px;"></i>
+            <p><strong>Beslenme Uzmanından Tavsiyeler:</strong></p>
+            <p style="font-size: 14px;">Diyabet dostu tarifler ve kişiye özel diyet programları.</p>
+        </div>
+        <p style="font-size: 12px; color: #777;">* Bu alan tanıtım ve duyurular için kullanılmaktadır.</p>
+    </aside>
+
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <h4>Hakkımızda</h4>
+            <a href="Hakkımızda.html">Misyonumuz</a>
+            <a href="#">Ekibimiz</a>
+            <a href="#">Kariyer</a>
+        </div>
+        <div class="footer-col">
+            <h4>Site Haritası</h4>
+            <a href="ındex.html">Ana Sayfa</a>
+            <a href="risk.html">Risk Hesapla</a>
+            <a href="VeriAnalizi.html">Veri Analizi</a>
+        </div>
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Örnek Mah. Sağlık Cad. No:1/A, İstanbul</p>
+            <p><i class="fas fa-envelope"></i> info@diyabetkalp.com</p>
+            <p><i class="fas fa-phone"></i> +90 555 123 45 67</p>
+        </div>
+        <div class="footer-col">
+            <h4>Sosyal Medya</h4>
+            <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2025 Diyabet & Kalp Hastalığı Projesi - Tüm Hakları Saklıdır.
+        <small>Bu site bilgilendirme amaçlıdır, teşhis ve tedavi için **tıbbi tavsiye yerine geçmez**. Lütfen bir uzmana danışın.</small>
+    </div>
+</footer>
+
+<script>
+    function goToRisk() {
+        window.location.href = "risk.html";
+    }
+</script>
+
+</body>
+</html>

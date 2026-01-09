@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Diyabet & Kalp Hastalığı Veri Analizi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <style>
+    /* Genel Stil ve Fontlar */
+    body {
+        margin: 0;
+        font-family: 'Poppins', Arial, sans-serif;
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    /* ===== HEADER - Başlık ve Navigasyon ===== */
+    header {
+        background-color: #004d40;
+        color: white;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+
+    nav {
+        display: flex;
+        gap: 25px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        padding: 5px 0;
+        transition: color 0.3s, border-bottom 0.3s;
+    }
+
+    nav a:hover {
+        color: #a7ffeb;
+        border-bottom: 2px solid #a7ffeb;
+    }
+    
+    /* Aktif Sayfa Vurgusu */
+    nav a[href="VeriAnalizi.html"] {
+        color: #a7ffeb;
+        border-bottom: 2px solid #a7ffeb;
+    }
+
+    /* ===== MAIN - İçerik Alanı ===== */
+    main {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 0 20px;
+    }
+
+    .data-section {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        border-top: 5px solid #00796b;
+    }
+
+    .data-section h2 {
+        text-align: center;
+        color: #00796b;
+        margin-bottom: 30px;
+        font-size: 28px;
+    }
+
+    .data-description {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #555;
+    }
+    
+    /* Analiz Sonuç Kartları */
+    .analysis-cards {
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .analysis-card {
+        flex: 1;
+        padding: 25px 15px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        transition: transform 0.3s;
+    }
+    
+    .analysis-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-diabetic {
+        background-color: #ffe0b2; 
+        border: 2px solid #fb8c00;
+    }
+
+    .card-non-diabetic {
+        background-color: #e8f5e9; 
+        border: 2px solid #43a047;
+    }
+
+    .analysis-card h3 {
+        color: #333;
+        font-size: 20px;
+        margin-top: 0;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding-bottom: 10px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .analysis-card .rate {
+        font-size: 48px;
+        font-weight: bold;
+        margin: 10px 0;
+        min-height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .card-diabetic .rate {
+        color: #e65100;
+    }
+    
+    .card-non-diabetic .rate {
+        color: #2e7d32;
+    }
+
+    .analysis-card .rate i {
+        font-size: 30px;
+        margin-right: 10px;
+    }
+
+    /* Görselleştirme Alanı */
+    .visualization-placeholder {
+        margin-top: 50px;
+        text-align: center;
+        padding: 30px;
+        background-color: #f0f4f7;
+        border-radius: 8px;
+        border: 1px dashed #ccc;
+        color: #777;
+    }
+
+    .visualization-placeholder i {
+        font-size: 40px;
+        margin-bottom: 10px;
+        color: #00796b;
+    }
+    
+    /* Buton Stilleri */
+    .data-section button {
+        margin-top: 30px;
+        width: 100%;
+        padding: 14px;
+        background: #00796b;
+        border: none;
+        color: white;
+        font-size: 17px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: background-color 0.3s, transform 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 121, 107, 0.4);
+    }
+
+    .data-section button:hover {
+        background-color: #004d40;
+        transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER - Alt Bilgi ===== */
+    footer {
+        background-color: #263238;
+        color: #cfd8dc;
+        padding: 40px 20px;
+        margin-top: 60px;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        text-align: left;
+        border-bottom: 1px solid #455a64;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .footer-col h4 {
+        color: #a7ffeb;
+        margin-bottom: 15px;
+        font-size: 18px;
+        border-bottom: 2px solid #546e7a;
+        padding-bottom: 5px;
+    }
+
+    .footer-col a {
+        color: #cfd8dc;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 8px;
+        transition: color 0.3s;
+    }
+
+    .footer-col a:hover {
+        color: #a7ffeb;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        font-size: 14px;
+        color: #90a4ae;
+    }
+    
+    .footer-bottom small {
+        display: block;
+        margin-top: 10px;
+    }
+
+    /* Responsive İyileştirme */
+    @media (max-width: 768px) {
+        .analysis-cards {
+            flex-direction: column;
+        }
+    }
+    @media (max-width: 600px) {
+        header {
+            flex-direction: column;
+            padding: 15px 20px;
+        }
+        nav {
+            margin-top: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        main {
+            margin: 30px auto;
+        }
+        .data-section {
+            padding: 30px 20px;
+        }
+        .footer-content {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+    }
+</style>
+</head>
+<body>
+
+   <header>
+    <h1><i class="fas fa-heartbeat"></i> Diyabet & Kalp Sağlığı</h1>
+    <nav>
+        <a href="ındex.html"><i class="fas fa-home"></i> Ana Sayfa</a>
+        <a href="risk.html"><i class="fas fa-calculator"></i> Risk Hesapla</a>
+        <a href="VeriAnalizi.html"><i class="fas fa-chart-bar"></i> Veri Analizi</a>
+        <a href="Hakkımızda.html"><i class="fas fa-info-circle"></i> Hakkımızda </a>
+    </nav>
+</header>
+
+<main>
+    <section class="data-section">
+        <h2><i class="fas fa-chart-line"></i> Diyabetin Kalp Hastalığı Üzerindeki Etkisi</h2>
+        <p class="data-description">
+            Aşağıdaki butona basarak büyük veri setleri üzerinde yapılan gerçek zamanlı analizin özet sonuçlarını görüntüleyin. Bu analiz, diyabetin kardiyovasküler risk üzerindeki kritik etkisini göstermektedir.
+        </p>
+        
+        <div class="analysis-cards">
+            <div class="analysis-card card-diabetic">
+                <h3><i class="fas fa-tint"></i> Diyabetli Bireyler</h3>
+                <div class="rate" id="diyabetli_risk"><i class="fas fa-sync fa-spin"></i></div>
+                <p>Kalp Hastalığı Görülme Oranı</p>
+            </div>
+
+            <div class="analysis-card card-non-diabetic">
+                <h3><i class="fas fa-check-circle"></i> Diyabetsiz Bireyler</h3>
+                <div class="rate" id="diyabetsiz_risk"><i class="fas fa-sync fa-spin"></i></div>
+                <p>Kalp Hastalığı Görülme Oranı</p>
+            </div>
+        </div>
+        
+        <button onclick="veriAnaliziniGoster()"><i class="fas fa-database"></i> Gerçek Veri Analizini Başlat</button>
+
+        <div class="visualization-placeholder" id="placeholder">
+            <i class="fas fa-chart-area"></i>
+            <p><strong>Görselleştirme Alanı Hazır</strong></p>
+            <p style="font-size: 14px;">Analiz başlatıldıktan sonra grafiksel sonuçlar burada görüntülenecektir.</p>
+        </div>
+
+    </section>
+</main>
+
+<script>
+async function veriAnaliziniGoster() {
+    const diyabetliRiskElement = document.getElementById("diyabetli_risk");
+    const diyabetsizRiskElement = document.getElementById("diyabetsiz_risk");
+    const placeholder = document.getElementById("placeholder");
+
+    // Yükleniyor durumu
+    diyabetliRiskElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    diyabetsizRiskElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    placeholder.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> <p>Veri setleri analiz ediliyor...</p>';
+    placeholder.style.backgroundColor = '#e0f2f1';
+    placeholder.style.border = '1px solid #b2dfdb';
+
+    try {
+        // Python Flask API'sine istek gönder
+        // API adresi: http://127.0.0.1:5000/api/veri-analizi
+        const response = await fetch("http://127.0.0.1:5000/api/veri-analizi", {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        const data = await response.json();
+
+        if (response.status !== 200) {
+            // API'den hata kodu gelirse (Örn: 404, 500)
+            throw new Error(data.error || "Sunucu analizi tamamlayamadı.");
+        }
+
+        const diyabetli = data.diabetic_risk;
+        const diyabetsiz = data.non_diabetic_risk;
+        const oranFarki = diyabetli / diyabetsiz;
+        const toplamKayit = data.total_analyzed_records;
+
+        // Sonuçları kartlara yaz
+        diyabetliRiskElement.innerHTML = `${diyabetli}%`;
+        diyabetsizRiskElement.innerHTML = `${diyabetsiz}%`;
+        
+        // Görselleştirme/Sonuç Özeti Alanını Güncelle
+        placeholder.innerHTML = `
+            <i class="fas fa-exclamation-triangle" style="color: #e65100;"></i>
+            <p><strong>Analiz Sonucu:</strong> ${toplamKayit} kayıt üzerinde yapılan analize göre, diyabetli bireylerde kalp hastalığı riski, 
+            diyabetsiz bireylere göre tam 
+            <span style="color: #d32f2f; font-weight: bold;">${oranFarki.toFixed(1)} kat</span> daha yüksektir.
+            </p>
+            <p style="font-size: 14px; margin-top: 15px; color: #333;">Bu analiz ${diyabetli}% vs ${diyabetsiz}% oranını göstermektedir.</p>
+        `;
+        placeholder.style.backgroundColor = '#fff3e0'; 
+        placeholder.style.border = '1px solid #ffcc80';
+        
+        // Bir grafik görseli önerebiliriz.
+        console.log("");
+
+
+    } catch (err) {
+        // Network veya Sunucu hatası
+        diyabetliRiskElement.innerHTML = '❌';
+        diyabetsizRiskElement.innerHTML = '❌';
+        placeholder.innerHTML = `<i class="fas fa-exclamation-circle" style="color: #d32f2f;"></i> <p>Hata: Sunucuya ulaşılamadı veya analiz başarısız oldu. Flask uygulamanızın çalışıp çalışmadığını kontrol edin.</p>`;
+        placeholder.style.backgroundColor = '#ffcdd2';
+        placeholder.style.border = '1px solid #ef9a9a';
+    }
+}
+</script>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-col">
+            <h4>Hakkımızda</h4>
+            <a href="Hakkımızda.html">Misyonumuz</a>
+            <a href="#">Ekibimiz</a>
+            <a href="#">Kariyer</a>
+        </div>
+        <div class="footer-col">
+            <h4>Site Haritası</h4>
+            <a href="ındex.html">Ana Sayfa</a>
+            <a href="risk.html">Risk Hesapla</a>
+            <a href="VeriAnalizi.html">Veri Analizi</a>
+        </div>
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <p><i class="fas fa-map-marker-alt"></i> Örnek Mah. Sağlık Cad. No:1/A, İstanbul</p>
+            <p><i class="fas fa-envelope"></i> info@diyabetkalp.com</p>
+            <p><i class="fas fa-phone"></i> +90 555 123 45 67</p>
+        </div>
+        <div class="footer-col">
+            <h4>Sosyal Medya</h4>
+            <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2025 Diyabet & Kalp Hastalığı Projesi - Tüm Hakları Saklıdır.
+        <small>Bu site bilgilendirme amaçlıdır, teşhis ve tedavi için **tıbbi tavsiye yerine geçmez**. Lütfen bir uzmana danışın.</small>
+    </div>
+</footer>
+
+</body>
+</html>
